@@ -2,17 +2,20 @@ import { useNavigate } from 'react-router-dom';
 import './Lists.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+
 const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   const [lists, setLists] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(''); // State to track search term
 
   const getMovies = () => {
-    //get the movies from the api or database
+    // Get the movies from the API or database
     axios.get('/movies').then((response) => {
       setLists(response.data);
     });
   };
+
   useEffect(() => {
     getMovies();
   }, []);
@@ -29,28 +32,34 @@ const Lists = () => {
           },
         })
         .then(() => {
-          //update list by modifying the movie list array
-          const tempLists = [...lists];
-          const index = lists.findIndex((movie) => movie.id === id);
-          if (index !== undefined || index !== -1) {
-            tempLists.splice(index, 1);
-            setLists(tempLists);
-          }
-
-          //update list by requesting again to api
-          // getMovies();
+          // Update the list by modifying the movie list array
+          const updatedLists = lists.filter((movie) => movie.id !== id);
+          setLists(updatedLists);
         });
     }
   };
 
+  // Filter the lists based on the search term
+  const filteredMovies = lists.filter((movie) =>
+    movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className='lists-container'>
+      <div className='search-container'>
+        <input
+          type='text'
+          placeholder='Search by title...'
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+          className='search-input'
+        />
+      </div>
       <div className='create-container'>
         <button
           type='button'
-          onClick={() => {
-            navigate('/main/movies/form');
-          }}
+          onClick={() => navigate('/main/movies/form')}
+          className='create-btn'
         >
           Create new
         </button>
@@ -65,20 +74,23 @@ const Lists = () => {
             </tr>
           </thead>
           <tbody>
-            {lists.map((movie) => (
-              <tr>
+            {filteredMovies.map((movie) => (
+              <tr key={movie.id}>
                 <td>{movie.id}</td>
                 <td>{movie.title}</td>
                 <td>
                   <button
                     type='button'
-                    onClick={() => {
-                      navigate('/main/movies/form/' + movie.id);
-                    }}
+                    onClick={() => navigate('/main/movies/form/' + movie.id)}
+                    className='edit-btn'
                   >
                     Edit
                   </button>
-                  <button type='button' onClick={() => handleDelete(movie.id)}>
+                  <button
+                    type='button'
+                    onClick={() => handleDelete(movie.id)}
+                    className='delete-btn'
+                  >
                     Delete
                   </button>
                 </td>
