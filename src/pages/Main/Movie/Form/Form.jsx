@@ -7,153 +7,181 @@ const Form = () => {
   const [query, setQuery] = useState('');
   const [searchedMovieList, setSearchedMovieList] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(undefined);
-  const [updatedMovie, setUpdatedMovie] = useState({
-    original_title: '',
-    overview: '',
-    popularity: '',
-    release_date: '',
-    vote_average: '',
-    poster_path: '',
-  });
+  const [movie, setMovie] = useState(undefined);
+  const [title, setTitle] = useState('');
+  const [overview, setOverview] = useState('');
+  const [popularity, setPopularity] = useState('');
+  const [releaseDate, setReleaseDate] = useState('');
+  const [voteAverage, setVoteAverage] = useState('');
+  const [cast, setCast] = useState([]); 
+  const [videos, setVideos] = useState([]); 
+  const [modalVideoId, setModalVideoId] = useState(null); 
 
   let { movieId } = useParams();
 
   const handleSearch = useCallback(() => {
-    if (query.trim() === '') return; // Avoid empty searches
-
-    axios({
-      method: 'get',
-      url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
-      headers: {
-        Accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NGY1MTAzMGM0ZDViYjQxNDQ5MmFmMDAwYjE0OWY3NCIsIm5iZiI6MTczMzI4MzU4Ny42NzcsInN1YiI6IjY3NGZjZjAzY2IxZTEyMGNjYjVkYzNkNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.10Q9xIm2LkFQcR64kN1CyIym49x5fejq-EKIeJMpd34', // Replace with your actual token
-      },
-    }).then((response) => {
-      setSearchedMovieList(response.data.results);
-    });
+    if (query.trim()) {
+      axios({
+        method: 'get',
+        url: `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWM3ZGM3MWMyNzFiOWVlZmEyNjcxOWYzNmNhNjZiZCIsIm5iZiI6MTczMzM2OTIxMi42ODMsInN1YiI6IjY3NTExZDdjNzBmN2JjNmQ2N2ZjYzVmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4w9FQXtYVyJA-7ZDEYxKZ67gBRcTTEPGRwWWNQHqa6Q', // Replace with your actual API key
+        },
+      }).then((response) => {
+        setSearchedMovieList(response.data.results);
+      });
+    } else {
+      setSearchedMovieList([]);
+    }
   }, [query]);
+
+  useEffect(() => {
+    handleSearch();
+  }, [query, handleSearch]);
 
   const handleSelectMovie = (movie) => {
     setSelectedMovie(movie);
-    setUpdatedMovie({
-      original_title: movie.original_title,
-      overview: movie.overview,
-      popularity: movie.popularity,
-      release_date: movie.release_date,
-      vote_average: movie.vote_average,
-      poster_path: movie.poster_path,
-    });
+    setTitle(movie.original_title);
+    setOverview(movie.overview);
+    setPopularity(movie.popularity);
+    setReleaseDate(movie.release_date);
+    setVoteAverage(movie.vote_average);
 
-    // Clear the searched movie list once a movie is selected
+    
+    fetchMovieDetails(movie.id);
+
+    
+    setQuery('');
     setSearchedMovieList([]);
+  };
+
+  
+  const fetchMovieDetails = (movieId) => {
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}/credits`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWM3ZGM3MWMyNzFiOWVlZmEyNjcxOWYzNmNhNjZiZCIsIm5iZiI6MTczMzM2OTIxMi42ODMsInN1YiI6IjY3NTExZDdjNzBmN2JjNmQ2N2ZjYzVmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4w9FQXtYVyJA-7ZDEYxKZ67gBRcTTEPGRwWWNQHqa6Q', // Replace with your actual API key
+        },
+      })
+      .then((response) => {
+        setCast(response.data.cast); 
+      });
+
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}/videos`, {
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyOWM3ZGM3MWMyNzFiOWVlZmEyNjcxOWYzNmNhNjZiZCIsIm5iZiI6MTczMzM2OTIxMi42ODMsInN1YiI6IjY3NTExZDdjNzBmN2JjNmQ2N2ZjYzVmNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.4w9FQXtYVyJA-7ZDEYxKZ67gBRcTTEPGRwWWNQHqa6Q', // Replace with your actual API key
+        },
+      })
+      .then((response) => {
+        setVideos(response.data.results); 
+      });
+  };
+
+  
+  const openVideoModal = (videoId) => {
+    setModalVideoId(videoId);
+  };
+
+
+  const closeVideoModal = () => {
+    setModalVideoId(null);
   };
 
   const handleSave = () => {
     const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      alert('No access token found!');
-      return;
-    }
-
+    
     if (!selectedMovie) {
       alert('Please search and select a movie.');
-      return;
-    }
+    } else {
+      const data = {
+        tmdbId: selectedMovie.id,
+        title,
+        overview,
+        popularity,
+        releaseDate,
+        voteAverage,
+        backdropPath: `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`,
+        posterPath: `https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`,
+        isFeatured: 0,
+        movieId: movieId, 
+      };
 
-    const data = {
-      tmdbId: selectedMovie.id,
-      title: updatedMovie.original_title,
-      overview: updatedMovie.overview,
-      popularity: updatedMovie.popularity,
-      releaseDate: updatedMovie.release_date,
-      voteAverage: updatedMovie.vote_average,
-      backdropPath: `https://image.tmdb.org/t/p/original/${selectedMovie.backdrop_path}`,
-      posterPath: `https://image.tmdb.org/t/p/original/${updatedMovie.poster_path}`,
-      isFeatured: 0,
-    };
-
-    console.log('Saving movie with data:', data);
-
-    const request = axios({
-      method: movieId ? 'patch' : 'post',
-      url: movieId ? `/movies/${movieId}` : '/movies',
-      data: data,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then((saveResponse) => {
-        console.log('Save successful:', saveResponse);
-        alert('Movie saved successfully');
+      
+      axios({
+        method: 'post', 
+        url: '/movies', 
+        data,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       })
-      .catch((error) => {
-        console.error('Error details:', error.response ? error.response.data : error.message);
-        alert('Error saving movie. Please check the console for more details.');
-      });
+        .then(() => alert('Successfully Saved!'))
+        .catch((error) => {
+          console.error('Error:', error.response || error.message || error);
+          alert('Failed to save. Check the console for details.');
+        });
+    }
   };
 
   useEffect(() => {
     if (movieId) {
       axios.get(`/movies/${movieId}`).then((response) => {
-        const movieData = response.data;
-        setSelectedMovie({
-          id: movieData.tmdbId,
-          original_title: movieData.title,
-          overview: movieData.overview,
-          popularity: movieData.popularity,
-          release_date: movieData.releaseDate,
-          vote_average: movieData.voteAverage,
-          poster_path: movieData.posterPath,
-        });
-        setUpdatedMovie({
-          original_title: movieData.title,
-          overview: movieData.overview,
-          popularity: movieData.popularity,
-          release_date: movieData.releaseDate,
-          vote_average: movieData.voteAverage,
-          poster_path: movieData.posterPath,
-        });
+        setMovie(response.data);
+        const tempData = {
+          id: response.data.tmdbId,
+          original_title: response.data.title,
+          overview: response.data.overview,
+          popularity: response.data.popularity,
+          poster_path: response.data.posterPath,
+          release_date: response.data.releaseDate,
+          vote_average: response.data.voteAverage,
+        };
+        setSelectedMovie(tempData);
+        setTitle(response.data.title);
+        setOverview(response.data.overview);
+        setPopularity(response.data.popularity);
+        setReleaseDate(response.data.releaseDate);
+        setVoteAverage(response.data.voteAverage);
       });
     }
   }, [movieId]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedMovie((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   return (
-    <div className="lists-container">
-      <h1>{movieId !== undefined ? 'Edit ' : 'Create '} Movie</h1>
+    <>
+      <h1>{movieId ? 'Edit ' : 'Create '} Movie</h1>
 
-      {movieId === undefined && (
+      {!movieId && (
         <div className="search-container">
-          <label>Search Movie:</label>
-          <input
-            className="search-input"
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <button type="button" onClick={handleSearch}>Search</button>
-          
+          <label>
+            Search Movie:
+            <input
+              type="text"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search for movies..."
+            />
+          </label>
           <div className="searched-movie">
             {searchedMovieList.map((movie) => (
-              <div
-                key={movie.id}
-                className="movie-item"
-                onClick={() => handleSelectMovie(movie)}
-              >
+              <div key={movie.id} className="search-result" onClick={() => handleSelectMovie(movie)}>
                 <img
-                  className="movie-poster"
-                  src={`https://image.tmdb.org/t/p/w92/${movie.poster_path}`}
+                  src={
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w92/${movie.poster_path}`
+                      : 'https://via.placeholder.com/50x75?text=No+Image'
+                  }
                   alt={movie.original_title}
                 />
-                <p className="movie-title">{movie.original_title}</p>
+                <div>
+                  <p><strong>{movie.original_title}</strong></p>
+                  <p style={{ fontSize: '12px', color: '#555' }}>
+                    {movie.release_date ? `Release: ${movie.release_date}` : 'No release date'}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -162,29 +190,29 @@ const Form = () => {
 
       <div className="container">
         <form>
-          {selectedMovie && updatedMovie.poster_path && (
+          {selectedMovie && (
             <img
               className="poster-image"
-              src={`https://image.tmdb.org/t/p/original/${updatedMovie.poster_path}`}
-              alt="Poster"
+              src={`https://image.tmdb.org/t/p/original/${selectedMovie.poster_path}`}
+              alt={selectedMovie.title}
             />
           )}
+
           <div className="field">
             Title:
             <input
               type="text"
-              name="original_title"
-              value={updatedMovie.original_title}
-              onChange={handleInputChange}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
+
           <div className="field">
             Overview:
             <textarea
               rows={10}
-              name="overview"
-              value={updatedMovie.overview}
-              onChange={handleInputChange}
+              value={overview}
+              onChange={(e) => setOverview(e.target.value)}
             />
           </div>
 
@@ -192,9 +220,8 @@ const Form = () => {
             Popularity:
             <input
               type="text"
-              name="popularity"
-              value={updatedMovie.popularity}
-              onChange={handleInputChange}
+              value={popularity}
+              onChange={(e) => setPopularity(e.target.value)}
             />
           </div>
 
@@ -202,9 +229,8 @@ const Form = () => {
             Release Date:
             <input
               type="text"
-              name="release_date"
-              value={updatedMovie.release_date}
-              onChange={handleInputChange}
+              value={releaseDate}
+              onChange={(e) => setReleaseDate(e.target.value)}
             />
           </div>
 
@@ -212,16 +238,70 @@ const Form = () => {
             Vote Average:
             <input
               type="text"
-              name="vote_average"
-              value={updatedMovie.vote_average}
-              onChange={handleInputChange}
+              value={voteAverage}
+              onChange={(e) => setVoteAverage(e.target.value)}
             />
           </div>
 
-          <button type="button" onClick={handleSave}>Save</button>
+          <button type="button" onClick={handleSave}>
+            Save
+          </button>
         </form>
       </div>
-    </div>
+
+      {/* Cast List */}
+      <div className="cast-container">
+        <h3>Cast</h3>
+        <div className="cast-list">
+          {cast.map((actor) => (
+            <div key={actor.id} className="cast-member">
+              <img
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w92/${actor.profile_path}`
+                    : 'https://via.placeholder.com/92x138?text=No+Image'
+                }
+                alt={actor.name}
+                className="cast-image"
+              />
+              <p>{actor.name}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Video Thumbnails */}
+      <div className="videos-container">
+        <h3>Video</h3>
+        {videos.map((video) => (
+          <div key={video.id} className="video-thumbnail" onClick={() => openVideoModal(video.key)}>
+            <img
+              src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+              alt={video.name}
+              className="video-thumbnail-image"
+            />
+            <p>{video.name}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal for YouTube video */}
+      {modalVideoId && (
+        <div className="video-modal">
+          <button className="close-modal" onClick={closeVideoModal}>
+            X
+          </button>
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${modalVideoId}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
+    </>
   );
 };
 

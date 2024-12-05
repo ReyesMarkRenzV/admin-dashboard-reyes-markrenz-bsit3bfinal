@@ -7,10 +7,9 @@ const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
   const navigate = useNavigate();
   const [lists, setLists] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(''); // State to track search term
+  const [searchTerm, setSearchTerm] = useState('');
 
   const getMovies = () => {
-    // Get the movies from the API or database
     axios.get('/movies').then((response) => {
       setLists(response.data);
     });
@@ -32,14 +31,12 @@ const Lists = () => {
           },
         })
         .then(() => {
-          // Update the list by modifying the movie list array
           const updatedLists = lists.filter((movie) => movie.id !== id);
           setLists(updatedLists);
         });
     }
   };
 
-  // Filter the lists based on the search term
   const filteredMovies = lists.filter((movie) =>
     movie.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -51,7 +48,7 @@ const Lists = () => {
           type='text'
           placeholder='Search by title...'
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+          onChange={(e) => setSearchTerm(e.target.value)}
           className='search-input'
         />
       </div>
