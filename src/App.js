@@ -8,6 +8,7 @@ import Main from './pages/Main/Main';
 import Movie from './pages/Main/Movie/Movie';
 import Lists from './pages/Main/Movie/Lists/Lists';
 import Form from './pages/Main/Movie/Form/Form';
+import { MovieProvider } from './pages/Main/Movie/Form/MovieContext'; // Import the MovieProvider
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <Dashboard />,
       },
-      {path: '/main/movies',
+      {
+        path: '/main/movies',
         element: <Movie />,
         children: [
           {
@@ -35,7 +37,11 @@ const router = createBrowserRouter([
           },
           {
             path: '/main/movies/form/:movieId?',
-            element: <Form />,
+            element: (
+              <MovieProvider> {/* Wrap with MovieProvider */}
+                <Form />
+              </MovieProvider>
+            ),
           },
         ],
       },
@@ -45,7 +51,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <RouterProvider router={router} />
     </div>
   );
