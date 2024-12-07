@@ -1,0 +1,48 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .register-form-container {
+    padding: 4rem 2rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .form-container > div {
+    margin-bottom: 12px;
+  }
+  
+  .register-form-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .register-form-group label {
+    width: 140px;
+    margin-right: 8px;
+    text-align: left;
+    white-space: nowrap;
+    margin-bottom: 0.5rem;
+  }
+  .errors {
+    color: red;
+    font-size: 12px;
+  }
+  .submit-container {
+    margin-top: 12px;
+    text-align: center;
+  }
+  .register-container {
+    text-align: center;
+  }
+  .show-password {
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
