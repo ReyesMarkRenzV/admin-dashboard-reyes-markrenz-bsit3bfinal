@@ -20,7 +20,12 @@ const Form = () => {
     modalVideoId, setModalVideoId
   } = useMovieContext();
 
+
+  
+
   let { movieId } = useParams();
+
+  
 
   const handleSearch = useCallback(() => {
     if (query.trim()) {

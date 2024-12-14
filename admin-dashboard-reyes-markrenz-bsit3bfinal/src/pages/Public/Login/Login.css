@@ -1,48 +1,114 @@
-.main-container {
+body{
+  background-image: url(./bg.jpg);
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+
+.main-container{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  background: #292c2cfc;
+  margin-left: 900px ;
+  margin-top: 50px;
+  width: 500px;
+  border-radius: 20px;
+  outline-style: solid;
+  outline-color: rgb(3, 25, 39) ;
+  outline-width: 5px;
 }
 
-.form-container {
-  padding: 4rem 2rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+.form-container{  
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.form-container > div {
-  margin-bottom: 12px;
+  gap: 15px;
+  margin: auto;
+  
 }
 
-.form-group {
+h3{
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #48f3e7fc;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
-.form-group label {
-  width: 70px;
-  margin-right: 8px;
-  text-align: left;
+
+.form-group input{
+  display: flex;
+  flex-direction: column; 
+  background: #ffffff;
+  height: 40px;
+  width: 400px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding-left: 10px;
+  margin-top: 9px;
+  margin-left: 40px;
 }
-.login.errors {
-  margin-bottom: 1rem;
-}
-.errors {
+
+
+
+.errors{
   color: red;
-  font-size: 12px;
+  font-size: 11px;
+  margin-left: 50px;
 }
-.submit-container {
-  margin-top: 12px;
-  text-align: center;
-}
-.register-container {
-  text-align: center;
-}
-.show-password {
-  margin-bottom: 1rem;
+
+.show-password{
+
+  color: white;
   cursor: pointer;
+  margin-left: auto;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+.submit-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button{
+  margin-top: 40px;
+  height: 40px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  background: rgb(234, 238, 0);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover{
+  background: #a5b105fc;
+}
+
+.register-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+small{
+  display: flex;
+  
+  align-items: center;
+  color: rgb(0, 255, 170);
+  text-decoration: underline;
+
 }

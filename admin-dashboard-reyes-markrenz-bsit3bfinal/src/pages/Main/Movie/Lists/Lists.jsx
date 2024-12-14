@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import './Lists.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import searchIcon from "./ElSearch.png"
 
 const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -44,6 +45,7 @@ const Lists = () => {
   return (
     <div className='lists-container'>
       <div className='search-container'>
+        <img src={searchIcon} alt="" />
         <input
           type='text'
           placeholder='Search by title...'
