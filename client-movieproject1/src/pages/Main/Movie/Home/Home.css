@@ -1,0 +1,136 @@
+.main-containerr {
+  padding: 20px;
+  color: #fff;
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.featured-list-container {
+  width: 85%;
+  height: 550px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  margin: 40px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.featured-backdrop {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 20px;
+  text-align: center;
+  color: white;
+  font-size: 1.6rem;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+  transition: background-size 0.3s ease;
+}
+
+.featured-backdrop:hover {
+  background-size: 110%;
+}
+
+.featured-movie-title {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 25px;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  border-radius: 8px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.featured-movie-title:hover {
+  transform: translateY(-5px);
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .list-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .list-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.MovieCards {
+  height: 300px;
+  background-color: #333;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.MovieCards:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.MovieCards img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+.MovieCards:hover img {
+  opacity: 0.7;
+}

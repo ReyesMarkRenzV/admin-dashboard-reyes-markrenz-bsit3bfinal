@@ -1,0 +1,41 @@
+.register{
+  height: auto;
+}
+
+.register-form-group input{ 
+  background: #ffffff;
+  height: 40px;
+  width: 450px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding-left: 10px;
+  margin: 9px;
+  margin-left: 18px;
+  
+}
+
+.login-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+small{
+  display: flex;
+  align-items: center;
+  color: rgb(0, 255, 170);
+  text-decoration: underline;
+}
+
+.show-password{
+  color: white;
+  cursor: pointer;
+  margin-left: 350px;
+  margin-top: 20px;
+  font-size: 11px;
+  text-decoration: underline;
+}
+

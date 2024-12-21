@@ -1,0 +1,39 @@
+
+.navigation{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #1f1f1f;
+  border-radius: 5px;
+  height: 70px;
+  width: 100%;
+  gap: 20px;
+}
+
+.Movies{
+  margin-right: 20px;
+  font-size: 20px;
+  padding: 5px 16px;
+  color: white;
+}
+
+.Movies:hover{
+  border-style: solid;
+  background-color: #11468F;
+  color: black;
+}
+
+.logout{
+  margin-right: 20px;
+  font-size: 20px;
+  padding: 5px 16px;
+  color: white;
+}
+
+.navigation .logout:hover{
+  border-style: solid;
+  background-color: #DA1212;
+  color: black;
+  
+}
+

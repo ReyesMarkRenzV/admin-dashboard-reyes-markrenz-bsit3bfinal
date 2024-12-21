@@ -1,0 +1,76 @@
+.lists-container{
+    background-color: #5a2c35 ;
+    border-radius: 20px;
+    
+}
+
+.search-container{
+    display: flex;
+    border-radius: 10px;
+    height: 40px;
+    padding: 9px;
+}
+
+
+.search-input{
+    display: flex;
+    border-radius: 10px;
+    width: 300px;
+    padding: 9px;
+}
+
+.create-container{
+    padding: 30px;
+
+}
+
+.create-container .create-btn{
+    display: flex;
+    margin-left: 85%;
+    width: 200px;
+    justify-content: center;
+    border-radius: 100px;
+    margin-bottom: 50px;
+    
+}
+.create-btn:hover{
+    background: blue;
+}
+.table-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border:auto;
+}
+
+.movie-lists td{
+    border-bottom: 2px solid #000000;
+    padding: 20px;
+    
+    
+}
+
+
+.edit-btn{
+    border-radius: 9px;
+    width: 100px;
+}
+
+.edit-btn:hover{
+    background: blue;
+}
+
+.delete-btn{
+    border-radius: 9px;
+    width: 100px;
+}
+
+
+.delete-btn:hover{
+    background: rgb(255, 0, 0);
+}
+
+.movie-lists tr:last-child {    
+    border-bottom: none;
+}
