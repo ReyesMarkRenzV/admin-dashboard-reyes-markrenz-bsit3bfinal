@@ -19,10 +19,10 @@ export const MovieProvider = ({ children }) => {
   const [voteAverage, setVoteAverage] = useState('');
   const [cast, setCast] = useState([]);
   const [videos, setVideos] = useState([]);
-  const [photos, setPhotos] = useState([]); // Added photos state
+  const [photos, setPhotos] = useState([]); 
   const [modalVideoId, setModalVideoId] = useState(null);
 
-  // Function to save videos
+  
   const saveVideos = async (movieId, videos) => {
     if (!videos || videos.length === 0) {
       console.log("No videos to save.");
@@ -30,7 +30,7 @@ export const MovieProvider = ({ children }) => {
     }
 
     const accessToken = localStorage.getItem("accessToken");
-    const userId = 1; // Adjust this as needed
+    const userId = 1;
 
     try {
       const videoPromises = videos.map((video) => {
@@ -52,7 +52,7 @@ export const MovieProvider = ({ children }) => {
         });
       });
 
-      // Wait for all video posts to finish
+      
       await Promise.all(videoPromises);
       console.log("Videos saved successfully");
     } catch (error) {
@@ -61,7 +61,7 @@ export const MovieProvider = ({ children }) => {
     }
   };
 
-  // Function to save photos
+  
   const savePhotos = async (movieId, photos) => {
     if (!photos || photos.length === 0) {
       console.log("No photos to save.");
@@ -69,15 +69,15 @@ export const MovieProvider = ({ children }) => {
     }
 
     const accessToken = localStorage.getItem("accessToken");
-    const userId = 1; // Adjust this as needed
+    const userId = 1; 
 
     try {
       const photoPromises = photos.map((photo) => {
         const photoData = {
           userId: userId,
           movieId: movieId,
-          url: `https://image.tmdb.org/t/p/original${photo.file_path}`, // Construct the URL for the photo
-          description: photo.description || "", // Optional description if available
+          url: `https://image.tmdb.org/t/p/original${photo.file_path}`, 
+          description: photo.description || "", 
         };
 
         return axios.post("/admin/photos", photoData, {
@@ -87,7 +87,7 @@ export const MovieProvider = ({ children }) => {
         });
       });
 
-      // Wait for all photo posts to finish
+      
       await Promise.all(photoPromises);
       console.log("Photos saved successfully");
     } catch (error) {
@@ -110,10 +110,10 @@ export const MovieProvider = ({ children }) => {
         voteAverage, setVoteAverage,
         cast, setCast,
         videos, setVideos,
-        photos, setPhotos, // Added photos
+        photos, setPhotos,
         modalVideoId, setModalVideoId,
-        saveVideos, // Exposed saveVideos function
-        savePhotos, // Exposed savePhotos function
+        saveVideos, 
+        savePhotos, 
       }}
     >
       {children}

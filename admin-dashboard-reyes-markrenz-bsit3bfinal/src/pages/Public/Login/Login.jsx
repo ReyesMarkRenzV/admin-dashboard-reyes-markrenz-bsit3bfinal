@@ -39,7 +39,7 @@ function Login() {
     }
   };
 
-  const [bg, setbg] = useState("./bg.jpg")
+  
   
   const handleLogin = async () => {
     const data = { email, password };

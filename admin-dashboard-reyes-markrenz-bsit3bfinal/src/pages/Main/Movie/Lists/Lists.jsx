@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import './Lists.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import searchIcon from "./ElSearch.png"
 
 const Lists = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -44,10 +43,12 @@ const Lists = () => {
 
   return (
     <div className='lists-container'>
+      <h1>Movies</h1>
       <div className='search-container'>
-        <img src={searchIcon} alt="" />
+          <label>Search Movie</label>
         <input
           type='text'
+          
           placeholder='Search by title...'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

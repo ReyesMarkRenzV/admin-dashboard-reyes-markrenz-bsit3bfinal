@@ -15,6 +15,7 @@
   font-size: 20px;
   padding: 5px 16px;
   color: white;
+  cursor: pointer;
 }
 
 .Movies:hover{
@@ -28,6 +29,7 @@
   font-size: 20px;
   padding: 5px 16px;
   color: white;
+  cursor: pointer;
 }
 
 .navigation .logout:hover{

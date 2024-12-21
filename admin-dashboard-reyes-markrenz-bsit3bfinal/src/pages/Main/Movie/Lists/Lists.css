@@ -1,5 +1,5 @@
 .lists-container{
-    background-color: #5a2c35 ;
+    background-color: #494a65 ;
     border-radius: 20px;
     
 }
@@ -9,6 +9,12 @@
     border-radius: 10px;
     height: 40px;
     padding: 9px;
+}
+
+label{
+    margin-left: 5px;
+    margin-bottom: 3px;
+    color: white;
 }
 
 

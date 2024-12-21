@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useCallback, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useMovieContext } from './MovieContext';
 import './Form.css';
 
@@ -176,19 +176,17 @@ const Form = () => {
 
   return (
     <>
-      <h1>{movieId ? 'Edit ' : 'Create '} Movie</h1>
+      <h2>{movieId ? 'Edit ' : 'Create '} Movie</h2>
 
       {!movieId && (
-        <div className="search-container">
-          <label>
-            Search Movie:
+        <div className="search-containers">
             <input
               type="text"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search for movies..."
             />
-          </label>
+          
           <div className="searched-movie">
             {searchedMovieList.map((movie) => (
               <div key={movie.id} className="search-result" onClick={() => handleSelectMovie(movie)}>
@@ -208,7 +206,7 @@ const Form = () => {
         </div>
       )}
 
-      <div className="container">
+      <div className="container-form">
         <form>
           {selectedMovie && (
             <img
@@ -217,7 +215,6 @@ const Form = () => {
               alt={selectedMovie.title}
             />
           )}
-
           <div className="field">
             Title:
             <input
