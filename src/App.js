@@ -38,7 +38,7 @@ const router = createBrowserRouter([
           {
             path: '/main/movies/form/:movieId?',
             element: (
-              <MovieProvider> {/* Wrap with MovieProvider */}
+              <MovieProvider> 
                 <Form />
               </MovieProvider>
             ),

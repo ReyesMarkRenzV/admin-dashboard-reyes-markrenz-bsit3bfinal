@@ -97,6 +97,7 @@ function Register() {
   }, [userInputDebounce]);
 
   return (
+    
     <div className='Register'>
       <div className='main-container'>
         <h3>Register</h3>
@@ -104,8 +105,8 @@ function Register() {
           <div className='register-form-container'>
             <div>
               <div className='register-form-group'>
-                <label>First Name:</label>
                 <input
+                  placeholder='First Name'
                   type='text'
                   name='firstName'
                   ref={firstNameRef}
@@ -118,19 +119,22 @@ function Register() {
             </div>
             <div>
               <div className='register-form-group'>
-                <label>Middle Name:</label>
                 <input
+                  placeholder='Middle Name'
                   type='text'
                   name='middleName'
                   ref={middleNameRef}
                   onChange={(e) => handleOnChange(e, 'middleName')}
                 />
               </div>
+              {debounceState && isFieldsDirty && password === '' && (
+                <span className='errors'>This field is required</span>
+              )}
             </div>
             <div>
               <div className='register-form-group'>
-                <label>Last Name:</label>
                 <input
+                  placeholder='Last Name'
                   type='text'
                   name='lastName'
                   ref={lastNameRef}
@@ -143,19 +147,22 @@ function Register() {
             </div>
             <div>
               <div className='register-form-group'>
-                <label>Contact No:</label>
                 <input
+                  placeholder='Contact Number'
                   type='text'
                   name='contactNo'
                   ref={contactNoRef}
                   onChange={(e) => handleOnChange(e, 'contactNo')}
                 />
               </div>
+              {debounceState && isFieldsDirty && password === '' && (
+                <span className='errors'>This field is required</span>
+              )}
             </div>
             <div>
               <div className='register-form-group'>
-                <label>E-mail:</label>
                 <input
+                  placeholder='Email Address'
                   type='text'
                   name='email'
                   ref={emailRef}
@@ -168,8 +175,8 @@ function Register() {
             </div>
             <div>
               <div className='register-form-group'>
-                <label>Password:</label>
                 <input
+                  placeholder='Password'
                   type={isShowPassword ? 'text' : 'password'}
                   name='password'
                   ref={passwordRef}
@@ -182,8 +189,8 @@ function Register() {
             </div>
             <div>
               <div className='register-form-group'>
-                <label>Confirm Password:</label>
                 <input
+                  placeholder='Confirm Password'
                   type={isShowPassword ? 'text' : 'password'}
                   name='confirmPassword'
                   ref={confirmPasswordRef}

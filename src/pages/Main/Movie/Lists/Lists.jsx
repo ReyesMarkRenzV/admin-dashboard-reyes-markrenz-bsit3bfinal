@@ -43,9 +43,12 @@ const Lists = () => {
 
   return (
     <div className='lists-container'>
+      <h1>Movies</h1>
       <div className='search-container'>
+          <label>Search Movie</label>
         <input
           type='text'
+          
           placeholder='Search by title...'
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

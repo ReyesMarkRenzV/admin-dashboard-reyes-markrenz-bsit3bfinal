@@ -10,6 +10,10 @@ function Main() {
     navigate('/');
   };
 
+  const handleMovie = () => {
+    navigate('/main/movies')
+  }
+
   useEffect(() => {
     if (
       accessToken === undefined ||
@@ -24,15 +28,13 @@ function Main() {
     <div className='Main'>
       <div className='container'>
         <div className='navigation'>
-          <ul>
-            <li>
-              <a href='/main/movies'>Movies</a>
-            </li>
-            <li className='logout'>
+            <div className='Movies'>
+              <a onClick={handleMovie}>Movies</a>
+            </div>
+            <div className='logout'>
               <a onClick={handleLogout}>Logout</a>
-            </li>
-          </ul>
-        </div>
+            </div>
+        </div>  
         <div className='outlet'>
           <Outlet />
         </div>

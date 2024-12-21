@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
-import './Login.css';
+import './Login.css'
 import { useNavigate, Link } from 'react-router-dom';
 import { useDebounce } from '../../../utils/hooks/useDebounce';
 import axios from 'axios';
@@ -39,6 +39,8 @@ function Login() {
     }
   };
 
+  
+  
   const handleLogin = async () => {
     const data = { email, password };
     setStatus('loading');
@@ -68,21 +70,19 @@ function Login() {
   }, [userInputDebounce]);
 
   return (
-    <div
-      className='Register'
-    >
       <div className='main-container'>
-        <h3>Login</h3>
+        <h3>Admin Panel</h3>
+        <div className="underline"></div>
         <form>
           <div className='form-container'>
             <div>
               <div className='form-group'>
-                <label>E-mail:</label>
                 <input
                   type='text'
                   name='email'
                   ref={emailRef}
                   onChange={(e) => handleOnChange(e, 'email')}
+                  placeholder='Email Address'
                 />
               </div>
               {debounceState && isFieldsDirty && email === '' && (
@@ -91,12 +91,12 @@ function Login() {
             </div>
             <div>
               <div className='form-group'>
-                <label>Password:</label>
                 <input
                   type={isShowPassword ? 'text' : 'password'}
                   name='password'
                   ref={passwordRef}
                   onChange={(e) => handleOnChange(e, 'password')}
+                  placeholder='Password'
                 />
               </div>
               {debounceState && isFieldsDirty && password === '' && (
@@ -138,13 +138,13 @@ function Login() {
 
             <div className='register-container'>
               <Link to='/register'>
-                <small>Register</small>
+                <small>Need Admin Account?</small>
               </Link>
             </div>
           </div>
         </form>
       </div>
-    </div>
+   
   );
 }
 
